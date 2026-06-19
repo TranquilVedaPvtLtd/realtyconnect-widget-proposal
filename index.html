@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RealtyConnect — Floating Chat Widget · Proposal for Kailash</title>
+<meta name="description" content="Four mockup options + INR pricing for the floating AI-chat widget on realtyconnect.tech.">
+<style>
+  :root{
+    --navy:#1f2461;
+    --navy-2:#2a3070;
+    --gold:#be8116;
+    --gold-soft:#f6efdc;
+    --ivory:#fbf8f1;
+    --ink:#1c1f2e;
+    --muted:#5b6075;
+    --line:#e6e3da;
+    --green:#1f7a4a;
+    --green-soft:#e7f4ec;
+    --shadow:0 10px 30px rgba(31,36,97,.10),0 2px 6px rgba(0,0,0,.04);
+    --shadow-lg:0 24px 60px rgba(31,36,97,.18),0 4px 14px rgba(0,0,0,.06);
+    --radius:16px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    color:var(--ink);
+    background:var(--ivory);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--navy);text-underline-offset:3px}
+  a:hover{color:var(--gold)}
+  h1,h2,h3{font-family:Georgia,"Times New Roman",serif;color:var(--navy);margin-top:0;line-height:1.2}
+  h1{font-size:clamp(28px,4.2vw,44px);letter-spacing:-.01em}
+  h2{font-size:clamp(22px,2.6vw,30px);margin:0 0 14px}
+  h3{font-size:18px;margin:0 0 6px}
+  .wrap{max-width:1100px;margin:0 auto;padding:32px 24px 80px}
+  header.hero{
+    background:linear-gradient(135deg,var(--navy) 0%,var(--navy-2) 100%);
+    color:#fff;border-radius:var(--radius);
+    padding:42px 36px 38px;margin-bottom:36px;
+    box-shadow:var(--shadow-lg);
+    position:relative;overflow:hidden;
+  }
+  header.hero::before{
+    content:"";position:absolute;inset:auto -80px -120px auto;
+    width:340px;height:340px;border-radius:50%;
+    background:radial-gradient(circle,rgba(190,129,22,.35),rgba(190,129,22,0) 70%);
+    pointer-events:none;
+  }
+  header.hero h1{color:#fff;margin-bottom:8px}
+  header.hero p.kicker{
+    color:var(--gold);font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    font-size:12px;margin:0 0 12px;font-family:inherit;
+  }
+  header.hero p.lede{color:rgba(255,255,255,.86);margin:0;max-width:680px;font-size:17px}
+  .meta-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .meta-pills span{
+    background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.16);
+    padding:6px 12px;border-radius:99px;font-size:12.5px;
+  }
+  .section{margin:0 0 40px}
+  .section .lede{color:var(--muted);max-width:760px;margin:0 0 18px}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;box-shadow:var(--shadow);
+  }
+  .req-list{margin:0;padding:0;list-style:none}
+  .req-list li{padding:8px 0 8px 28px;position:relative;border-bottom:1px dashed var(--line)}
+  .req-list li:last-child{border-bottom:0}
+  .req-list li::before{
+    content:"";position:absolute;left:0;top:14px;width:14px;height:14px;
+    border-radius:4px;background:var(--gold);box-shadow:0 0 0 4px var(--gold-soft);
+  }
+
+  /* mockups grid */
+  .mockup-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media (max-width:760px){.mockup-grid{grid-template-columns:1fr}.grid-2{grid-template-columns:1fr}}
+  .mockup-card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:14px;
+  }
+  .mockup-card h3{display:flex;align-items:center;gap:10px}
+  .mockup-card .tag{
+    background:var(--gold-soft);color:var(--gold);font-size:11px;font-weight:700;
+    text-transform:uppercase;letter-spacing:.1em;padding:3px 8px;border-radius:99px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  }
+  .mockup-card .for-who{color:var(--muted);font-size:13.5px;margin:-2px 0 4px}
+  .mockup-stage{
+    position:relative;height:280px;border:1px dashed var(--line);
+    border-radius:12px;background:
+      linear-gradient(180deg,#f3f4f9 0%,#eceffa 100%);
+    overflow:hidden;
+  }
+  .stage-bg{
+    position:absolute;inset:14px;border-radius:8px;background:#fff;
+    box-shadow:inset 0 0 0 1px var(--line);
+    display:flex;flex-direction:column;
+  }
+  .stage-bg .browser-bar{
+    height:22px;background:#f1f2f8;border-bottom:1px solid var(--line);
+    border-top-left-radius:8px;border-top-right-radius:8px;
+    display:flex;align-items:center;gap:6px;padding:0 10px;
+  }
+  .stage-bg .browser-bar i{width:8px;height:8px;border-radius:50%;display:inline-block;background:#d6d8e3}
+  .stage-bg .page-content{
+    flex:1;padding:14px;color:#9ea2b8;font-size:11px;line-height:1.4;
+    background:
+      linear-gradient(transparent 0 14px,#eceffa 14px 15px,transparent 15px),
+      linear-gradient(90deg,transparent 0,transparent calc(100% - 6px),#eceffa calc(100% - 6px) 100%);
+    background-size:100% 26px,100% 100%;
+  }
+  .stage-bg .page-content::before{
+    content:"realtyconnect.tech — your WordPress site";
+    display:block;font-weight:600;color:var(--navy);font-size:12.5px;margin-bottom:6px;
+  }
+  .mockup-foot{
+    display:grid;grid-template-columns:auto 1fr;gap:6px 12px;align-items:start;
+    font-size:13.5px;color:var(--muted);
+  }
+  .mockup-foot dt{font-weight:600;color:var(--navy)}
+
+  /* ---------- WIDGET STYLES (live) ---------- */
+  /* shared */
+  .w-base{position:absolute;cursor:pointer;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  .w-base:focus{outline:2px solid var(--gold);outline-offset:2px}
+  .w-base * {box-sizing:border-box}
+  .icon-chat{
+    width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff
+  }
+  .icon-chat svg{width:22px;height:22px}
+
+  /* Option A: Pill Banner (compact, wide, bottom-right) */
+  .w-pill{
+    right:18px;bottom:18px;height:64px;min-width:280px;
+    background:linear-gradient(135deg,var(--navy),var(--navy-2));
+    color:#fff;border-radius:999px;padding:0 18px 0 14px;
+    display:inline-flex;align-items:center;gap:12px;
+    box-shadow:var(--shadow-lg);
+    transition:transform .2s ease,box-shadow .2s ease;
+  }
+  .w-pill:hover{transform:translateY(-2px);box-shadow:0 28px 60px rgba(31,36,97,.28)}
+  .w-pill .bubble{
+    width:44px;height:44px;border-radius:50%;background:var(--gold);
+    display:flex;align-items:center;justify-content:center;flex:0 0 44px;
+    box-shadow:0 0 0 4px rgba(190,129,22,.22);
+  }
+  .w-pill .copy{display:flex;flex-direction:column;line-height:1.15}
+  .w-pill .copy b{font-size:14px}
+  .w-pill .copy span{font-size:12px;color:rgba(255,255,255,.78)}
+  .w-pill .arrow{margin-left:auto;color:var(--gold);font-size:18px;font-weight:700}
+
+  /* Option B: Card with Photo Banner (largest, most prominent) */
+  .w-card{
+    right:18px;bottom:18px;width:320px;
+    background:#fff;border-radius:18px;overflow:hidden;
+    box-shadow:var(--shadow-lg);
+    transition:transform .2s ease,box-shadow .2s ease;
+  }
+  .w-card:hover{transform:translateY(-3px) scale(1.01);box-shadow:0 30px 70px rgba(31,36,97,.30)}
+  .w-card .banner{
+    height:120px;background:
+      linear-gradient(135deg,rgba(31,36,97,.65),rgba(31,36,97,.25)),
+      repeating-linear-gradient(135deg,#3a4080 0 18px,#2a3070 18px 36px);
+    color:#fff;padding:14px;position:relative;
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .w-card .banner small{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--gold)}
+  .w-card .banner b{font-size:16px;line-height:1.25;display:block;max-width:230px}
+  .w-card .banner .promo-tag{
+    position:absolute;right:10px;top:10px;background:var(--gold);color:#fff;
+    font-size:10px;font-weight:700;padding:3px 8px;border-radius:99px;letter-spacing:.08em;
+  }
+  .w-card .foot{
+    padding:14px;display:flex;align-items:center;gap:10px;background:#fff;
+  }
+  .w-card .foot .av{
+    width:36px;height:36px;border-radius:50%;background:var(--navy);
+    display:flex;align-items:center;justify-content:center;color:#fff;flex:0 0 36px;
+  }
+  .w-card .foot .txt{display:flex;flex-direction:column;line-height:1.2;flex:1}
+  .w-card .foot .txt b{font-size:14px;color:var(--navy)}
+  .w-card .foot .txt span{font-size:11.5px;color:var(--green);font-weight:600}
+  .w-card .foot .txt span::before{content:"●";color:var(--green);margin-right:5px}
+  .w-card .foot button{
+    background:var(--navy);color:#fff;border:0;border-radius:99px;
+    padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;
+  }
+
+  /* Option C: Bubble + Speech Ribbon (mid prominence, attached banner) */
+  .w-bubble-wrap{right:18px;bottom:18px;display:flex;align-items:center;gap:8px}
+  .w-bubble-wrap .ribbon{
+    background:#fff;color:var(--navy);
+    border:1px solid var(--line);border-radius:12px 12px 4px 12px;
+    padding:9px 14px;font-size:13px;max-width:240px;line-height:1.3;
+    box-shadow:var(--shadow);position:relative;
+  }
+  .w-bubble-wrap .ribbon b{display:block;font-size:13px}
+  .w-bubble-wrap .ribbon small{color:var(--muted);font-size:11.5px}
+  .w-bubble-wrap .ribbon::after{
+    content:"";position:absolute;right:-6px;bottom:8px;width:0;height:0;
+    border-left:7px solid #fff;border-top:6px solid transparent;border-bottom:6px solid transparent;
+    filter:drop-shadow(1px 0 0 var(--line));
+  }
+  .w-bubble{
+    width:72px;height:72px;border-radius:50%;
+    background:linear-gradient(135deg,var(--gold),#a3680f);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:var(--shadow-lg);
+    transition:transform .2s ease;
+  }
+  .w-bubble:hover{transform:scale(1.06)}
+  .w-bubble svg{width:32px;height:32px}
+  .w-bubble .dot{
+    position:absolute;right:0;top:0;width:14px;height:14px;border-radius:50%;
+    background:var(--green);border:2px solid #fff;
+    animation:pulse 2.2s ease-in-out infinite;
+  }
+  .w-bubble-wrap{position:absolute}
+  .w-bubble-wrap .bubble-container{position:relative}
+  @keyframes pulse{
+    0%,100%{box-shadow:0 0 0 0 rgba(31,122,74,.6)}
+    50%{box-shadow:0 0 0 8px rgba(31,122,74,0)}
+  }
+
+  /* Option D: Side Rail (vertical, hugs right edge) */
+  .w-rail{
+    right:0;top:50%;transform:translateY(-50%);
+    width:72px;
+    background:linear-gradient(180deg,var(--navy),var(--navy-2));
+    color:#fff;border-radius:14px 0 0 14px;
+    padding:14px 8px;display:flex;flex-direction:column;align-items:center;gap:10px;
+    box-shadow:-8px 0 24px rgba(31,36,97,.18);
+    transition:width .2s ease;
+  }
+  .w-rail:hover{width:80px}
+  .w-rail .badge{
+    background:var(--gold);color:#fff;font-size:10px;font-weight:700;
+    padding:2px 7px;border-radius:99px;text-transform:uppercase;letter-spacing:.08em;
+  }
+  .w-rail .icon{
+    width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.12);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .w-rail .vtext{
+    writing-mode:vertical-rl;transform:rotate(180deg);
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:rgba(255,255,255,.82);margin-top:4px;
+  }
+  .w-rail .cta{
+    background:var(--gold);color:#fff;font-size:11px;font-weight:700;
+    padding:6px 8px;border-radius:8px;margin-top:4px;letter-spacing:.04em;
+  }
+
+  /* ---------- PRICING ---------- */
+  .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media (max-width:760px){.price-grid{grid-template-columns:1fr}}
+  .price-card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px;box-shadow:var(--shadow);position:relative;display:flex;flex-direction:column;
+  }
+  .price-card.featured{border:2px solid var(--gold);transform:translateY(-2px)}
+  .price-card .name{font-weight:700;color:var(--navy);font-size:15px;letter-spacing:.04em;text-transform:uppercase}
+  .price-card .price{font-size:34px;font-weight:800;color:var(--ink);margin:10px 0 0;font-family:Georgia,serif}
+  .price-card .price small{font-size:13px;font-weight:500;color:var(--muted)}
+  .price-card .timeline{
+    margin:8px 0 14px;font-size:13px;color:var(--muted);
+  }
+  .price-card .timeline b{color:var(--green);font-weight:600}
+  .price-card ul{list-style:none;padding:0;margin:14px 0 18px;flex:1}
+  .price-card ul li{
+    padding:7px 0 7px 24px;font-size:13.5px;position:relative;border-bottom:1px dashed var(--line);
+  }
+  .price-card ul li:last-child{border-bottom:0}
+  .price-card ul li::before{
+    content:"";position:absolute;left:0;top:12px;width:14px;height:8px;
+    border-left:2px solid var(--green);border-bottom:2px solid var(--green);
+    transform:rotate(-45deg);
+  }
+  .price-card ul li.no::before{
+    content:"×";color:var(--muted);font-weight:700;border:0;transform:none;top:5px;font-size:18px;
+  }
+  .price-card ul li.no{color:var(--muted)}
+  .price-card .badge-feat{
+    position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+    background:var(--gold);color:#fff;font-size:11px;font-weight:700;
+    padding:4px 12px;border-radius:99px;letter-spacing:.1em;
+  }
+
+  /* addons + install + faq */
+  .addon-row{display:grid;grid-template-columns:1fr auto;gap:10px;padding:12px 0;border-bottom:1px dashed var(--line)}
+  .addon-row:last-child{border-bottom:0}
+  .addon-row .amt{font-weight:700;color:var(--navy);font-family:Georgia,serif}
+  .install-pre{
+    background:#1c1f2e;color:#dde0f0;border-radius:12px;padding:18px;font-size:12.5px;
+    overflow:auto;line-height:1.5;
+  }
+  .install-pre b{color:var(--gold)}
+  details.faq{border-bottom:1px solid var(--line);padding:14px 0}
+  details.faq[open]{padding-bottom:18px}
+  details.faq summary{cursor:pointer;font-weight:600;color:var(--navy);font-size:15px;list-style:none}
+  details.faq summary::after{content:" +";float:right;color:var(--gold);font-weight:700}
+  details.faq[open] summary::after{content:" −"}
+  details.faq p{color:var(--muted);margin:8px 0 0;font-size:14px}
+
+  footer{margin-top:60px;color:var(--muted);font-size:12.5px;text-align:center;line-height:1.7}
+  footer b{color:var(--navy)}
+
+  /* clickable mockup → highlight when picked */
+  .pick-row{
+    margin-top:24px;background:#fff;border:1px solid var(--line);
+    border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);
+    display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  }
+  .pick-row .picked{
+    font-weight:700;color:var(--navy);font-family:Georgia,serif;font-size:18px;flex:1;min-width:200px;
+  }
+  .pick-row .picked span{color:var(--gold)}
+  .pick-row a.cta-btn{
+    background:var(--navy);color:#fff;text-decoration:none;
+    padding:10px 18px;border-radius:99px;font-weight:600;font-size:14px;
+  }
+  .pick-row a.cta-btn:hover{background:var(--gold);color:#fff}
+
+  .mockup-card.is-picked{box-shadow:0 0 0 3px var(--gold),var(--shadow)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ============= HERO ============= -->
+<header class="hero">
+  <p class="kicker">Proposal · Floating Chat Widget for realtyconnect.tech</p>
+  <h1>Bring the AI assistant onto your WordPress site — one floating widget, four design options.</h1>
+  <p class="lede">A small, persistent widget at the bottom-right of every page on <b>realtyconnect.tech</b>. One click takes the visitor to <b>chat.realtyconnect.tech</b> — already live and answering questions in English, Hindi and Marathi. Each option below is shown <em>at real size</em>; hover over the mockups to see the click behaviour.</p>
+  <div class="meta-pills">
+    <span>For: Realty Connect (Kailash, Pinaka Digital)</span>
+    <span>From: Tranquil Veda</span>
+    <span>Prepared 19 Jun 2026</span>
+    <span>Validity: 21 days</span>
+  </div>
+</header>
+
+<!-- ============= REQUIREMENT ============= -->
+<section class="section">
+  <div class="grid-2">
+    <div class="card">
+      <h2>What you asked for</h2>
+      <ul class="req-list">
+        <li>A floating widget on the WordPress marketing site, visible on every page.</li>
+        <li>Clicking it should open the chatbot at <b>chat.realtyconnect.tech</b>.</li>
+        <li>Bigger than a standard WhatsApp bubble — there is room for a promo banner.</li>
+        <li>The banner area should be editable so your team can rotate offers.</li>
+        <li>Mobile-friendly and not blocking the rest of the site.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>What you get either way</h2>
+      <ul class="req-list">
+        <li>Self-contained code — drops into WordPress with no developer needed for v1.</li>
+        <li>Works on every page, every device, every browser used in India today.</li>
+        <li>44×44 minimum tap target (WCAG 2.1 SC 2.5.5) so it is usable on phones.</li>
+        <li>Opens chat in a new tab — your visitor never loses your homepage.</li>
+        <li>One round of design tweaks (colour, copy, banner image) is included.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============= MOCKUPS ============= -->
+<section class="section" id="mockups">
+  <h2>Four design options</h2>
+  <p class="lede">Each option below is a live mockup, not an image. They differ in <b>size, prominence and how much banner space</b> they give you. Click any card to mark it as your preferred choice.</p>
+
+  <div class="mockup-grid">
+
+    <!-- Option A: Pill -->
+    <div class="mockup-card" data-pick="Option A — Pill Banner">
+      <h3>Option A — Pill Banner <span class="tag">Subtle</span></h3>
+      <p class="for-who">For: keep it understated. Most like a classic chat widget, just wider and with copy you control.</p>
+      <div class="mockup-stage">
+        <div class="stage-bg">
+          <div class="browser-bar"><i></i><i></i><i></i></div>
+          <div class="page-content"></div>
+        </div>
+        <div class="w-base w-pill" role="button" tabindex="0" aria-label="Open Realty Connect AI">
+          <div class="bubble">
+            <span class="icon-chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
+          </div>
+          <div class="copy"><b>Ask our AI assistant</b><span>2 BHK in Baner under 1Cr?</span></div>
+          <div class="arrow">→</div>
+        </div>
+      </div>
+      <dl class="mockup-foot">
+        <dt>Size</dt><dd>≈ 280 × 64 px (auto-grows with text)</dd>
+        <dt>Banner space</dt><dd>The whole pill (text only — swap copy daily if you want)</dd>
+        <dt>Best for</dt><dd>A clean look that doesn't dominate the page.</dd>
+      </dl>
+    </div>
+
+    <!-- Option B: Card with photo banner -->
+    <div class="mockup-card" data-pick="Option B — Card with Photo Banner">
+      <h3>Option B — Card with Photo Banner <span class="tag">Most visible</span></h3>
+      <p class="for-who">For: maximum advertising. The top half is a full-bleed banner — drop in a property photo, festive offer, or "10% off site visit booking" image.</p>
+      <div class="mockup-stage">
+        <div class="stage-bg">
+          <div class="browser-bar"><i></i><i></i><i></i></div>
+          <div class="page-content"></div>
+        </div>
+        <div class="w-base w-card" role="button" tabindex="0" aria-label="Open Realty Connect AI">
+          <div class="banner">
+            <span class="promo-tag">PROMO</span>
+            <small>This Diwali</small>
+            <b>Pre-launch flats in Wakad — 2&nbsp;BHK from ₹65L*</b>
+          </div>
+          <div class="foot">
+            <div class="av">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </div>
+            <div class="txt"><b>Realty Connect AI</b><span>Online now</span></div>
+            <button>Chat</button>
+          </div>
+        </div>
+      </div>
+      <dl class="mockup-foot">
+        <dt>Size</dt><dd>320 × 200 px</dd>
+        <dt>Banner space</dt><dd>320 × 120 px — full photo or rich text. Operator-swappable.</dd>
+        <dt>Best for</dt><dd>Running active promos / festive offers. Highest click-through.</dd>
+      </dl>
+    </div>
+
+    <!-- Option C: Bubble + speech ribbon -->
+    <div class="mockup-card" data-pick="Option C — Bubble with Speech Ribbon">
+      <h3>Option C — Bubble + Speech Ribbon <span class="tag">Balanced</span></h3>
+      <p class="for-who">For: a familiar chat bubble like WhatsApp, but with a short message attached so people know what it does.</p>
+      <div class="mockup-stage">
+        <div class="stage-bg">
+          <div class="browser-bar"><i></i><i></i><i></i></div>
+          <div class="page-content"></div>
+        </div>
+        <div class="w-bubble-wrap" style="right:18px;bottom:18px">
+          <div class="ribbon">
+            <b>Ask our AI assistant</b>
+            <small>Replies in &lt; 10 sec · EN · हिन्दी · मराठी</small>
+          </div>
+          <div class="bubble-container">
+            <div class="w-base w-bubble" role="button" tabindex="0" aria-label="Open Realty Connect AI">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              <span class="dot"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <dl class="mockup-foot">
+        <dt>Size</dt><dd>72 px bubble + 240 px ribbon (auto-hides on small phones)</dd>
+        <dt>Banner space</dt><dd>The ribbon — short headline + sub-line. Editable from WordPress.</dd>
+        <dt>Best for</dt><dd>Familiar UX, low visual weight. The pulsing dot signals "online".</dd>
+      </dl>
+    </div>
+
+    <!-- Option D: Side rail -->
+    <div class="mockup-card" data-pick="Option D — Side Rail">
+      <h3>Option D — Side Rail <span class="tag">Always there</span></h3>
+      <p class="for-who">For: unmissable but doesn't overlap content. Sits vertically on the right edge.</p>
+      <div class="mockup-stage">
+        <div class="stage-bg">
+          <div class="browser-bar"><i></i><i></i><i></i></div>
+          <div class="page-content"></div>
+        </div>
+        <div class="w-base w-rail" role="button" tabindex="0" aria-label="Open Realty Connect AI">
+          <span class="badge">NEW</span>
+          <div class="icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </div>
+          <div class="vtext">Realty&nbsp;Connect&nbsp;AI</div>
+          <div class="cta">Chat</div>
+        </div>
+      </div>
+      <dl class="mockup-foot">
+        <dt>Size</dt><dd>72 × 220 px (collapses to a 56-px tab on small phones)</dd>
+        <dt>Banner space</dt><dd>The vertical text strip — short campaign line.</dd>
+        <dt>Best for</dt><dd>Always visible as the visitor scrolls; doesn't sit over content.</dd>
+      </dl>
+    </div>
+
+  </div>
+
+  <div class="pick-row">
+    <div class="picked" id="picked">Click any of the mockups above to mark it as your preferred design — your pick will appear here: <span>(none selected yet)</span></div>
+    <a class="cta-btn" href="mailto:shruti@jarvisdaily.com?subject=RealtyConnect%20widget%20%E2%80%94%20I'd%20like%20to%20go%20with…&amp;body=Hi%20Shruti%2C%20I%27d%20like%20to%20go%20with%20%3CPlease%20paste%20the%20option%20name%3E.%20Please%20kick%20it%20off.">Email Shruti your pick</a>
+  </div>
+</section>
+
+<!-- ============= PRICING ============= -->
+<section class="section" id="pricing">
+  <h2>Pricing &amp; timeline</h2>
+  <p class="lede">All prices in INR, ex-GST. Timeline assumes the design choice is locked. One dev + one QA pass.</p>
+
+  <div class="price-grid">
+    <div class="price-card">
+      <div class="name">Quick Launch</div>
+      <div class="price">₹8,000 <small>+ GST</small></div>
+      <div class="timeline">Live in <b>2 business days</b></div>
+      <ul>
+        <li>Your chosen mockup (A / B / C / D), final colours &amp; copy.</li>
+        <li>Self-contained <b>HTML + CSS + JS snippet</b> for WordPress.</li>
+        <li>You paste it once via the <b>Custom HTML</b> widget or your theme's footer code area.</li>
+        <li>Opens <b>chat.realtyconnect.tech</b> in a new tab.</li>
+        <li>Mobile-responsive (collapses on small screens).</li>
+        <li>Tested on Chrome, Safari, Edge, Firefox + iPhone &amp; Android.</li>
+        <li class="no">Admin panel to change banner image / text without a developer.</li>
+        <li class="no">Click analytics dashboard.</li>
+      </ul>
+    </div>
+
+    <div class="price-card featured">
+      <div class="badge-feat">Recommended</div>
+      <div class="name">Premium</div>
+      <div class="price">₹18,000 <small>+ GST</small></div>
+      <div class="timeline">Live in <b>4–5 business days</b></div>
+      <ul>
+        <li>Everything in Quick Launch, <b>plus</b>:</li>
+        <li>Delivered as a <b>one-file WordPress plugin (.zip)</b> — install &amp; activate, done.</li>
+        <li><b>Admin panel</b> inside WordPress: change banner image, headline, sub-text, schedule promos.</li>
+        <li>Built-in <b>EN / हिन्दी / मराठी</b> banner copy switcher (auto-shows the right one).</li>
+        <li>Two design tweak rounds included.</li>
+        <li>Smart hide rules: hide on certain page-types (e.g. checkout), show on others.</li>
+        <li class="no">Click analytics dashboard.</li>
+      </ul>
+    </div>
+
+    <div class="price-card">
+      <div class="name">Premium + Analytics</div>
+      <div class="price">₹26,000 <small>+ GST</small></div>
+      <div class="timeline">Live in <b>6–7 business days</b></div>
+      <ul>
+        <li>Everything in Premium, <b>plus</b>:</li>
+        <li>Click-through events sent to your chatbot's analytics tab.</li>
+        <li>Per-page click report (which page is converting visitors to chat).</li>
+        <li><b>A/B test</b> two banner versions and see which one wins after 7 days.</li>
+        <li>30 days of post-launch tuning included.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 style="margin-top:36px">Add-ons (any tier)</h2>
+  <div class="card" style="padding:8px 18px">
+    <div class="addon-row"><div>Open the chat in a <b>side-drawer iframe</b> on the same page instead of a new tab</div><div class="amt">+ ₹6,000</div></div>
+    <div class="addon-row"><div>"Talk to a human" fallback button that hands the conversation to WhatsApp Business</div><div class="amt">+ ₹4,000</div></div>
+    <div class="addon-row"><div>Auto-pop the widget once per visitor on the 2nd page they view</div><div class="amt">+ ₹2,500</div></div>
+    <div class="addon-row"><div>Branded sound on incoming reply (subtle, off by default)</div><div class="amt">+ ₹1,500</div></div>
+  </div>
+</section>
+
+<!-- ============= INSTALL ============= -->
+<section class="section" id="install">
+  <h2>How it goes onto your WordPress site</h2>
+  <p class="lede">Quick Launch tier — a 60-second paste. Premium tier — a one-click plugin install. Either way, your team does it without us needing access to the WordPress admin.</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Quick Launch (snippet)</h3>
+      <ol>
+        <li>WordPress admin → <b>Appearance → Widgets</b> (or the theme's footer code area).</li>
+        <li>Add a <b>"Custom HTML"</b> widget to the footer.</li>
+        <li>Paste the snippet we send you.</li>
+        <li>Save. The widget appears on every page within a minute.</li>
+      </ol>
+      <pre class="install-pre"><b>&lt;!-- realty-connect-widget v1 --&gt;</b>
+&lt;link rel="stylesheet" href="https://cdn.../rc-widget.css"&gt;
+&lt;div id="rc-widget"&gt;&lt;/div&gt;
+&lt;script async src="https://cdn.../rc-widget.js"
+        data-target="https://chat.realtyconnect.tech"&gt;
+&lt;/script&gt;</pre>
+    </div>
+    <div class="card">
+      <h3>Premium (plugin)</h3>
+      <ol>
+        <li>WordPress admin → <b>Plugins → Add New → Upload Plugin</b>.</li>
+        <li>Pick the <code>realty-connect-widget.zip</code> we send you.</li>
+        <li>Click <b>Install</b> → <b>Activate</b>.</li>
+        <li>Go to <b>Settings → Realty Connect Widget</b>: pick your design (A/B/C/D), upload a banner image, set the headline. Save.</li>
+        <li>Visit your homepage to confirm.</li>
+      </ol>
+      <p style="color:var(--muted);font-size:13.5px;margin:14px 0 0">
+        Plugin works on any WordPress 5.x / 6.x install. Tested with the most common Indian themes (Astra, OceanWP, GeneratePress, Avada).
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============= FAQ ============= -->
+<section class="section">
+  <h2>Quick questions</h2>
+  <div class="card">
+    <details class="faq">
+      <summary>Will the widget slow down our website?</summary>
+      <p>No. The script is loaded asynchronously and the widget itself is &lt; 12 KB total (CSS + JS). It will not affect your Google PageSpeed score.</p>
+    </details>
+    <details class="faq">
+      <summary>Can we change the banner image whenever we want?</summary>
+      <p>On the Premium tier, yes — straight from the WordPress admin, no developer needed. On Quick Launch we can also do a small monthly retainer for banner swaps if you'd prefer.</p>
+    </details>
+    <details class="faq">
+      <summary>What happens on a slow mobile connection?</summary>
+      <p>The widget is the last thing to load on the page. If the user's connection is too slow it gracefully fails — the rest of your site still works perfectly.</p>
+    </details>
+    <details class="faq">
+      <summary>Can we hide the widget on certain pages?</summary>
+      <p>Included on Premium. You can hide it on pages like checkout, login, the privacy policy, or anywhere you don't want it.</p>
+    </details>
+    <details class="faq">
+      <summary>Who owns the code?</summary>
+      <p>You do, perpetually. After we deliver, you can keep it, modify it, host it yourselves — no recurring licence fee.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ============= NEXT STEPS ============= -->
+<section class="section">
+  <h2>Next steps</h2>
+  <div class="card">
+    <ol style="margin:0;padding-left:20px;line-height:2">
+      <li>Click your preferred mockup above (A, B, C or D).</li>
+      <li>Pick a tier — most clients start with <b>Premium</b> for the admin panel and banner control.</li>
+      <li>Reply to this message or email <a href="mailto:shruti@jarvisdaily.com">shruti@jarvisdaily.com</a> with your pick.</li>
+      <li>We send across the final design for your sign-off, you confirm, and we hand over the snippet / plugin within the stated timeline.</li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <p><b>Realty Connect — Floating Chat Widget Proposal</b> · prepared by Tranquil Veda for Pinaka Digital Technologies.<br>
+  Hosted on GitHub Pages. Valid for 21 days from 19 Jun 2026.</p>
+</footer>
+
+</div>
+
+<script>
+  // Click-to-pick interaction on the mockup cards
+  (function(){
+    var cards = document.querySelectorAll('.mockup-card');
+    var label = document.querySelector('#picked span');
+    cards.forEach(function(card){
+      card.addEventListener('click', function(){
+        cards.forEach(function(c){ c.classList.remove('is-picked'); });
+        card.classList.add('is-picked');
+        if (label) label.textContent = card.getAttribute('data-pick');
+      });
+    });
+
+    // Each widget mockup opens the chat in a new tab when clicked, so Kailash can sanity-check the destination
+    document.querySelectorAll('.w-base').forEach(function(w){
+      w.addEventListener('click', function(e){
+        e.stopPropagation();
+        window.open('https://chat.realtyconnect.tech', '_blank', 'noopener');
+      });
+      w.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          window.open('https://chat.realtyconnect.tech', '_blank', 'noopener');
+        }
+      });
+    });
+  })();
+</script>
+</body>
+</html>
