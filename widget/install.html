@@ -89,10 +89,10 @@
     promoTag:    "NEW",                            // small corner tag ("" to hide)
     ctaLabel:    "Chat",
     brand:       "Realty Connect AI",
-    bannerImage: "",                               // e.g. "https://your-site.com/promo.jpg"
-    chatUrl:     "https://chat.realtyconnect.tech",
+    bannerImage: "",                               // e.g. "https://your-site.com/promo.jpg" — http(s) only
     openInNewTab: true
   };
+  // Note: the destination chat URL is fixed at https://chat.realtyconnect.tech.
 &lt;/script&gt;
 &lt;script src="https://tranquilvedapvtltd.github.io/realtyconnect-widget-proposal/widget/embed.js" defer&gt;&lt;/script&gt;</pre>
 
@@ -133,7 +133,7 @@
     <details><summary>Can I hide the widget on the checkout / privacy pages?</summary><p>With Path A, your theme's "page-specific code" feature can skip it. With Path B (inline), only paste the snippet on the pages you want it on. (Smart hide rules are built into the Premium plugin tier — separate quote.)</p></details>
     <details><summary>What if the script URL ever goes down?</summary><p>Your site keeps working — only the widget would not render (the page itself is untouched). You can switch to Path B as a fallback at any time.</p></details>
     <details><summary>Does it work on mobile?</summary><p>Yes. The card auto-sizes to phone widths and the tap targets are 44 px+ (per WCAG 2.1).</p></details>
-    <details><summary>Can I change the chat destination?</summary><p>Yes — set <code>chatUrl</code> in the config block.</p></details>
+    <details><summary>Can I change the chat destination?</summary><p>The destination is fixed at <code>chat.realtyconnect.tech</code> (your live chatbot). If you ever need to point at a different URL — for example a staging copy — drop us a line and we'll ship a build with the destination updated.</p></details>
   </div>
 
   <footer>Realty Connect floating widget · Quick Launch · prepared by Tranquil Veda for Pinaka Digital Technologies.</footer>
