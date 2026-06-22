@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Realty Connect Widget — Install Guide</title>
+<meta name="description" content="Two ways to put the Realty Connect floating chat widget on your WordPress site: one-line embed, or full snippet for full control.">
+<style>
+  :root{--navy:#1f2461;--gold:#be8116;--ink:#1c1f2e;--muted:#5b6075;--line:#e6e3da;--ivory:#fbf8f1;--soft:#f6efdc;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--ivory);line-height:1.55}
+  .wrap{max-width:880px;margin:0 auto;padding:30px 22px 80px}
+  h1,h2,h3{font-family:Georgia,serif;color:var(--navy);line-height:1.2}
+  h1{font-size:clamp(26px,3.6vw,36px);margin:0 0 8px}
+  h2{font-size:22px;margin:34px 0 10px}
+  h3{font-size:17px;margin:18px 0 8px}
+  .kick{color:var(--gold);font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:12px;margin:0 0 8px}
+  .hero{background:linear-gradient(135deg,#1f2461,#2a3070);color:#fff;border-radius:16px;padding:32px 28px;box-shadow:0 20px 50px rgba(31,36,97,.18)}
+  .hero h1{color:#fff}
+  .hero p{color:rgba(255,255,255,.88);margin:0;max-width:640px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:0 8px 24px rgba(31,36,97,.08);margin-top:18px}
+  .card.recommended{border:2px solid var(--gold);position:relative}
+  .card.recommended::before{content:"RECOMMENDED";position:absolute;top:-11px;left:18px;background:var(--gold);color:#fff;font-size:11px;font-weight:700;letter-spacing:.1em;padding:3px 10px;border-radius:99px}
+  ol{margin:0;padding-left:20px} ol li{margin:8px 0}
+  code{background:#f1f0ea;padding:2px 6px;border-radius:5px;font-size:13px}
+  pre{background:#1c1f2e;color:#dde0f0;border-radius:10px;padding:16px;overflow:auto;font-size:12px;line-height:1.5;margin:10px 0}
+  .copy-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:6px}
+  .btn{background:var(--navy);color:#fff;border:0;border-radius:99px;padding:9px 16px;font-size:13.5px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block}
+  .btn:hover{background:var(--gold)}
+  .btn.ghost{background:#fff;color:var(--navy);border:1px solid var(--line)}
+  .tip{background:var(--soft);border:1px solid #ecdcb4;border-radius:10px;padding:12px 14px;font-size:13.5px;color:#6b5212;margin-top:14px}
+  table{width:100%;border-collapse:collapse;margin-top:8px}
+  th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;font-size:14px}
+  th{background:#fbf7ee;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  details{border-top:1px solid var(--line);padding:14px 0}
+  details summary{cursor:pointer;font-weight:600;color:var(--navy);list-style:none}
+  details summary::after{content:" +";float:right;color:var(--gold)}
+  details[open] summary::after{content:" −"}
+  details p{color:var(--muted);margin:8px 0 0;font-size:14px}
+  .note{color:var(--muted);font-size:13.5px}
+  footer{margin-top:40px;color:var(--muted);font-size:12.5px;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <p class="kick">Install guide · Quick Launch · Option B</p>
+    <h1>Putting the Realty Connect widget on your WordPress site</h1>
+    <p>Two ways to install. Path A is one line of code (recommended — future updates roll out automatically). Path B pastes the whole widget inline if you prefer everything self-contained.</p>
+  </div>
+
+  <h2>Which path should I use?</h2>
+  <div class="card">
+    <table>
+      <thead><tr><th>Path</th><th>What you paste</th><th>Auto-updates?</th><th>Edit banner?</th></tr></thead>
+      <tbody>
+        <tr><td><b>A — Embed (recommended)</b></td><td>1 line</td><td>Yes — we ship tweaks, your site picks them up next visit</td><td>Via a small config block before the script</td></tr>
+        <tr><td>B — Inline snippet</td><td>~140 lines</td><td>No — you'd re-paste to update</td><td>Edit the <code>CONFIG</code> block inside the snippet</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============================================================== -->
+  <h2>Path A — one-line embed (recommended)</h2>
+  <div class="card recommended">
+
+    <h3>1. Open the place in WordPress where site-wide code goes</h3>
+    <p>WordPress admin → <b>Appearance → Widgets</b> → drag a <b>Custom HTML</b> block into the Footer.<br>
+       (If your theme has a "Footer Scripts" or "Custom Code" box under Theme Options, that also works.)</p>
+
+    <h3>2. Paste this snippet</h3>
+    <div class="copy-row">
+      <strong>The whole install — one script tag.</strong>
+      <button class="btn" id="copyA" type="button">Copy</button>
+    </div>
+<pre id="snipA">&lt;script src="https://tranquilvedapvtltd.github.io/realtyconnect-widget-proposal/widget/embed.js" defer&gt;&lt;/script&gt;</pre>
+
+    <h3>3. (Optional) Customise the banner text or promo</h3>
+    <p>Add this <b>before</b> the script tag and edit any field you want. Anything you skip falls back to the default.</p>
+    <div class="copy-row">
+      <strong>Optional config block.</strong>
+      <button class="btn ghost" id="copyAcfg" type="button">Copy</button>
+    </div>
+<pre id="snipAcfg">&lt;script&gt;
+  window.RC_WIDGET_CONFIG = {
+    headline:    "2 BHK in Baner under ₹1 Cr? Ask me anything.",
+    kicker:      "Ask our AI assistant",
+    promoTag:    "NEW",                            // small corner tag ("" to hide)
+    ctaLabel:    "Chat",
+    brand:       "Realty Connect AI",
+    bannerImage: "",                               // e.g. "https://your-site.com/promo.jpg"
+    chatUrl:     "https://chat.realtyconnect.tech",
+    openInNewTab: true
+  };
+&lt;/script&gt;
+&lt;script src="https://tranquilvedapvtltd.github.io/realtyconnect-widget-proposal/widget/embed.js" defer&gt;&lt;/script&gt;</pre>
+
+    <h3>4. Save the widget and open your homepage</h3>
+    <p>The chat widget appears bottom-right on every page within a minute. Click it to make sure it opens <code>chat.realtyconnect.tech</code>.</p>
+
+    <div class="tip">When you want to swap the banner image, change <code>bannerImage</code> to a public URL of your promo image (recommended ~640×240, &lt; 200 KB). Save the widget. Refresh.</div>
+  </div>
+
+  <!-- ============================================================== -->
+  <h2>Path B — inline snippet (self-contained)</h2>
+  <div class="card">
+    <p>Paste this whole block into a <b>Custom HTML</b> widget in the Footer. Edit the <code>CONFIG</code> block at the top to change the banner/headline.</p>
+    <div class="copy-row">
+      <strong>Whole widget, inline.</strong>
+      <span>
+        <button class="btn" id="copyB" type="button">Copy</button>
+        <a class="btn ghost" href="snippet.html" download="rc-widget-snippet.html">Download .html</a>
+      </span>
+    </div>
+    <pre id="snipB">Loading snippet…</pre>
+  </div>
+
+  <h2>How to check it worked</h2>
+  <div class="card">
+    <ol>
+      <li>Open your homepage in an incognito / private window (so caching doesn't lie to you).</li>
+      <li>Look at the bottom-right: a small card with a banner and a "Chat" button should appear.</li>
+      <li>Click the card — a new tab should open at <code>chat.realtyconnect.tech</code>.</li>
+      <li>Click the small <b>×</b> in the corner — the card should collapse to a small bubble.</li>
+      <li>Refresh the page — the bubble stays (it remembers).</li>
+    </ol>
+  </div>
+
+  <h2>Common questions</h2>
+  <div class="card">
+    <details><summary>Will it slow my website down?</summary><p>No. The script is loaded with <code>defer</code> — it doesn't block your page. The widget itself is about 12 KB.</p></details>
+    <details><summary>Can I hide the widget on the checkout / privacy pages?</summary><p>With Path A, your theme's "page-specific code" feature can skip it. With Path B (inline), only paste the snippet on the pages you want it on. (Smart hide rules are built into the Premium plugin tier — separate quote.)</p></details>
+    <details><summary>What if the script URL ever goes down?</summary><p>Your site keeps working — only the widget would not render (the page itself is untouched). You can switch to Path B as a fallback at any time.</p></details>
+    <details><summary>Does it work on mobile?</summary><p>Yes. The card auto-sizes to phone widths and the tap targets are 44 px+ (per WCAG 2.1).</p></details>
+    <details><summary>Can I change the chat destination?</summary><p>Yes — set <code>chatUrl</code> in the config block.</p></details>
+  </div>
+
+  <footer>Realty Connect floating widget · Quick Launch · prepared by Tranquil Veda for Pinaka Digital Technologies.</footer>
+</div>
+
+<script>
+  function bindCopy(btnId, srcId){
+    document.getElementById(btnId).addEventListener('click', function(){
+      var t = document.getElementById(srcId).textContent || '';
+      navigator.clipboard.writeText(t).then(function(){
+        var b=document.getElementById(btnId); var o=b.textContent; b.textContent='Copied ✓';
+        setTimeout(function(){b.textContent=o;},1600);
+      });
+    });
+  }
+  bindCopy('copyA','snipA'); bindCopy('copyAcfg','snipAcfg'); bindCopy('copyB','snipB');
+
+  // Populate inline-snippet box from snippet.html (single source of truth)
+  fetch('snippet.html', {cache:'no-store'}).then(function(r){return r.text();}).then(function(s){
+    document.getElementById('snipB').textContent = s;
+  }).catch(function(){
+    document.getElementById('snipB').textContent = "(snippet.html not reachable — use the Download button.)";
+  });
+</script>
+</body>
+</html>

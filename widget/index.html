@@ -47,18 +47,28 @@
 
   <div class="tip">Look at the <b>bottom-right of this page</b> to see the real widget. Try clicking it, and try the &times; to minimise it to a bubble (it remembers your choice on reload).</div>
 
-  <h2>Install on WordPress (about 60 seconds)</h2>
-  <div class="card">
-    <ol>
-      <li>WordPress admin → <b>Appearance → Widgets</b> (or your theme's Footer / "Custom code" area).</li>
-      <li>Add a <b>Custom HTML</b> block to the Footer.</li>
-      <li>Paste the snippet below and <b>Save</b>.</li>
-      <li>Open your homepage — the widget appears bottom-right on every page.</li>
-    </ol>
-    <p class="note" style="margin-top:12px">To change the banner: edit the <code>CONFIG</code> block at the top of the script (headline, promo tag, and an optional <code>bannerImage</code> URL).</p>
+  <h2>Two ways to install</h2>
+  <div class="card" style="background:#fbf7ee;border-color:#ecdcb4">
+    <strong style="color:#1f2461">A — One-line embed (recommended).</strong> Paste a single &lt;script&gt; tag. Updates roll out automatically.<br>
+    <strong style="color:#1f2461">B — Inline snippet.</strong> Paste the whole widget code inline; self-contained.<br>
+    Both paths are documented step-by-step at <a href="install.html">install.html</a>. The summary below.
   </div>
 
-  <h2>The snippet</h2>
+  <h2>Path A — One-line embed (recommended)</h2>
+  <div class="card">
+    <ol>
+      <li>WordPress admin → <b>Appearance → Widgets</b> → drag a <b>Custom HTML</b> block to the Footer.</li>
+      <li>Paste this single line:</li>
+    </ol>
+    <div class="snippet-head" style="margin-top:8px">
+      <strong>One line.</strong>
+      <button class="btn" id="copyEmbed" type="button">Copy embed line</button>
+    </div>
+    <pre id="embedBox">&lt;script src="https://tranquilvedapvtltd.github.io/realtyconnect-widget-proposal/widget/embed.js" defer&gt;&lt;/script&gt;</pre>
+    <p class="note">Want to change the headline, promo tag, or banner image? Add a small <code>window.RC_WIDGET_CONFIG</code> block before the script tag — full options at <a href="install.html">install.html</a>.</p>
+  </div>
+
+  <h2>Path B — Inline snippet (self-contained)</h2>
   <div class="card">
     <div class="snippet-head">
       <strong>Paste this whole block into the Custom HTML widget</strong>
@@ -92,13 +102,16 @@
     document.getElementById('snippetFallback').style.display = 'block';
   });
 
-  document.getElementById('copyBtn').addEventListener('click', function(){
-    var t = document.getElementById('snippetBox').textContent || '';
-    navigator.clipboard.writeText(t).then(function(){
-      var b=document.getElementById('copyBtn'); var o=b.textContent; b.textContent='Copied ✓';
-      setTimeout(function(){b.textContent=o;},1600);
+  function bindCopy(btnId, srcId){
+    document.getElementById(btnId).addEventListener('click', function(){
+      var t = document.getElementById(srcId).textContent || '';
+      navigator.clipboard.writeText(t).then(function(){
+        var b=document.getElementById(btnId); var o=b.textContent; b.textContent='Copied ✓';
+        setTimeout(function(){b.textContent=o;},1600);
+      });
     });
-  });
+  }
+  bindCopy('copyBtn','snippetBox'); bindCopy('copyEmbed','embedBox');
 </script>
 </body>
 </html>
